@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+ /* App.css - basic, pretty styles 
+ * { box-sizing: border-box; margin: 0; padding: 0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; } */
+/* 
+html, body, #root { height: 100%; }
+
+.clock-wrap {
+  min-height: 100vh;
+  display:  flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+  transition: background 0.6s ease, color 0.3s ease;
+}
+
+/* Theme for even seconds */
+.theme-even {
+  background: linear-gradient(135deg, #d1fae5 0%, #60a5fa00 100%); /* green -> blue */
+  color: #042a2b;
+}
+
+/* Theme for odd seconds */
+.theme-odd {
+  background: linear-gradient(135deg, #fee2e2 0%, #c7b3ff00 100%); /* pink -> purple */
+  color: #0b2b18;
+}
+
+/* Card */
+.clock-card {
+  background: (255,255,255,0.12);
+  backdrop-filter: blur(6px);
+  border-radius: 50px;
+  padding: 28px 36px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.705);
+  text-align: center;
+  min-width: 320px;
+}
+
+/* Time row */
+/* .time-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.time-hour {
+  font-size: 50px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* seconds smaller and slightly different style */
+/* .time-sec {
+  font-size: 20px;
+  font-weight: 600;
+  opacity: 0.95;
+  align-self: flex-end;
+  padding-bottom: 6px;
+} */
+
+/* AM/PM badge */
+/* .ampm {
+  margin-left: 10px;
+  font-size: 30px;
+  font-weight: 700;
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.22);
+  color: inherit;
+  align-self: flex-start;
+} */
+
+/* Date row */
+/* .date-row {
+  margin-top: 8px;
+  font-size: 20px;
+  opacity: 0.95;
+  font-weight: 700;
+} */
+
+/* Hint */
+/* .hint {
+  margin-top: 10px;
+  font-size: 10px;
+  opacity: 0.9;
+}   */ 
