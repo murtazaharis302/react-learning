@@ -1,8 +1,8 @@
-@import "tailwindcss";
+/* @import "tailwindcss"; */
 
- /* App.css - basic, pretty styles 
- * { box-sizing: border-box; margin: 0; padding: 0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; } */
-/* 
+/* App.css - basic, pretty styles */
+/* { box-sizing: border-box; margin: 0; padding: 0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; } */
+/*
 html, body, #root { height: 100%; }
 
 .clock-wrap {
@@ -15,19 +15,21 @@ html, body, #root { height: 100%; }
 }
 
 /* Theme for even seconds */
-.theme-even {
-  background: linear-gradient(135deg, #d1fae5 0%, #60a5fa00 100%); /* green -> blue */
-  color: #042a2b;
-}
+/* .theme-even {
+  background: linear-gradient(135deg, #d1fae5 0%, #60a5fa00 100%);
+  /* green -> blue */
+  /* color: #042a2b; */
+/* } */
 
 /* Theme for odd seconds */
-.theme-odd {
-  background: linear-gradient(135deg, #fee2e2 0%, #c7b3ff00 100%); /* pink -> purple */
-  color: #0b2b18;
-}
+/* .theme-odd {
+  background: linear-gradient(135deg, #fee2e2 0%, #c7b3ff00 100%);
+  /* pink -> purple */
+  /* color: #0b2b18; */
+/* } */
 
 /* Card */
-.clock-card {
+/* .clock-card {
   background: (255,255,255,0.12);
   backdrop-filter: blur(6px);
   border-radius: 50px;
@@ -35,7 +37,7 @@ html, body, #root { height: 100%; }
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.705);
   text-align: center;
   min-width: 320px;
-}
+} */
 
 /* Time row */
 /* .time-row {
@@ -86,4 +88,4 @@ html, body, #root { height: 100%; }
   margin-top: 10px;
   font-size: 10px;
   opacity: 0.9;
-}   */ 
+} */
