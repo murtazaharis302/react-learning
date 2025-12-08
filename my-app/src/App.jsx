@@ -1,29 +1,36 @@
-import React from "react";
-import "/.tailwind.css"
-import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Counterfunc2 from "./counter2.jsx";
-import About from "./pages/About.jsx";
-import Home from "./pages/Home.jsx";
-import Contact from "./pages/Contact.jsx";
-import Password from "./pages/Password.jsx";
-import Input from "./pages/input.jsx";
-import Text from "./pages/text.jsx";
+import React, { useState } from "react";
+import Profile from "./components/Profile";
+import { ThemeContext } from "./contexts/ThemeContext";
 
- function App() {
+function App() {
+  const [theme, setTheme] = useState("light");
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  };
+
+  const contextValue = { theme, toggleTheme };
+
+  const appStyle = {
+    minHeight: "100vh",
+    padding: 40,
+    background: theme === "dark" ? "#1a1a1a" : "#ffffff",
+    color: theme === "dark" ? "#eee" : "#111",
+    transition: "background 0.2s, color 0.2s",
+  };
+
   return (
-    <Router>
-      <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/Counter" element={<Counterfunc2 />} />
-        <Route path="/password" element={<Password />} />
-         <Route path="/input" element={<Input/>} />
-          <Route path="/text" element={<Text/>} />
+    <ThemeContext.Provider value={contextValue}>
+      <div style={appStyle}>
+        <h1>App Component</h1>
 
-      </Routes>
-    </Router>
+        <div style={{ marginBottom: 20 }}>
+          <button onClick={toggleTheme}>Toggle Theme (Current: {theme})</button>
+        </div>
+
+        <Profile />
+      </div>
+    </ThemeContext.Provider>
   );
 }
 
