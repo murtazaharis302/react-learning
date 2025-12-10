@@ -1,52 +1,112 @@
-// src/App.jsx
-import React, { useState } from "react";
-import { AppContext } from "./contexts/AppContext";
-import WeatherDashboard from "./WeatherDashboard";
+import React, { useState, useEffect } from "react";
+import NoteItem from "./components/NoteItem";
+import { SettingsContext } from "./contexts/SettingsContext";
 
 function App() {
-  // global settings (context)
-  const [unit, setUnit] = useState("C"); // "C" or "F"
-  const [refreshTime, setRefreshTime] = useState(10000); // ms (10s)
+  const [fontSize, setFontSize] = useState("medium");
 
-  const contextValue = { unit, refreshTime, setUnit, setRefreshTime };
+  const [notes, setNotes] = useState([]);
+  const [inputValue, setInputValue] = useState("");
 
-  const container = {
+  useEffect(() => {
+    const saved = localStorage.getItem("notes_app_v1");
+    if (saved) {
+      try {
+        setNotes(JSON.parse(saved));
+      } catch (e) {
+        console.error("Failed to parse saved notes:", e);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("notes_app_v1", JSON.stringify(notes));
+  }, [notes]);
+
+  const addNote = () => {
+    const trimmed = inputValue.trim();
+    if (!trimmed) return;
+    setNotes((prev) => [trimmed, ...prev]);
+    setInputValue("");
+  };
+
+  const deleteNoteAt = (index) => {
+    setNotes((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const containerStyle = {
     minHeight: "100vh",
-    background: "#f3f4f6",
     padding: 24,
+    background: "#f3f4f6",
     fontFamily: "Arial, sans-serif",
   };
 
-  return (
-    <AppContext.Provider value={contextValue}>
-      <div style={container}>
-        <h1>Simple Weather App </h1>
+  const boxStyle = {
+    maxWidth: 600,
+    margin: "0 auto",
+    background: "#f9fafb",
+    padding: 20,
+    borderRadius: 8,
+    boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+  };
 
-        <div style={{ marginBottom: 16, display: "flex", gap: 12, alignItems: "center" }}>
-          <div>
-            <label>Unit: </label>
-            <select value={unit} onChange={(e) => setUnit(e.target.value)}>
-              <option value="C">Celsius (C)</option>
-              <option value="F">Fahrenheit (F)</option>
+  const inputRow = { display: "flex", gap: 8, marginBottom: 12 };
+
+  return (
+    <SettingsContext.Provider value={{ fontSize, setFontSize }}>
+      <div style={containerStyle}>
+        <div style={boxStyle}>
+          {<h1>Notes App </h1>}
+
+          <div style={{ marginBottom: 16 }}>
+            <label style={{ marginRight: 8 }}>Font size:</label>
+            <select
+              value={fontSize}
+              onChange={(e) => setFontSize(e.target.value)}
+            >
+              <option value="small">Small</option>
+              <option value="medium">Medium</option>
+              <option value="large">Large</option>
             </select>
+            <span style={{ marginLeft: 12, color: "#666" }}>
+              (Global setting via Context)
+            </span>
+          </div>
+
+          <div style={inputRow}>
+            <input
+              type="text"
+              placeholder="Type a note..."
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              style={{ flex: 1, padding: 8 }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") addNote();
+              }}
+            />
+            <button onClick={addNote}>Add</button>
           </div>
 
           <div>
-            <label>Refresh:</label>
-            <select
-              value={refreshTime}
-              onChange={(e) => setRefreshTime(Number(e.target.value))}
-            >
-              <option value={5000}>5s</option>
-              <option value={10000}>10s</option>
-              <option value={30000}>30s</option>
-            </select>
+            {notes.length === 0 ? (
+              <p style={{ color: "#666" }}>No notes yet — add one!</p>
+            ) : (
+              notes.map((note, idx) => (
+                <SettingsContext.Consumer key={idx}>
+                  {({ fontSize }) => (
+                    <NoteItem
+                      text={note}
+                      fontSize={fontSize}
+                      deleteNote={() => deleteNoteAt(idx)}
+                    />
+                  )}
+                </SettingsContext.Consumer>
+              ))
+            )}
           </div>
         </div>
-
-        <WeatherDashboard />
       </div>
-    </AppContext.Provider>
+    </SettingsContext.Provider>
   );
 }
 
